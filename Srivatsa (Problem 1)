@@ -1,0 +1,30 @@
+def count_mismatches(substring, virus):
+    count = 0
+    for i in range(len(virus)):
+        if substring[i] != virus[i]:
+            count += 1
+            if count > 1:
+                return False
+    return True
+
+def virusIndices(test_cases):
+    for case in test_cases:
+        patient, virus = case.split()
+        indices = []
+        for i in range(len(patient) - len(virus) + 1):
+            substring = patient[i:i+len(virus)]
+            if substring == virus or count_mismatches(substring, virus):
+                indices.append(i)
+        if indices:
+            print(" ".join(map(str, indices)))
+        else:
+            print("No Match!")
+
+# Sample Input
+test_cases = [
+    "abbab ba",
+    "hello world",
+    "banana nan"
+]
+
+virusIndices(test_cases)
